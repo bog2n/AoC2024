@@ -7,19 +7,19 @@ case "$1" in
 
 		while read -r line; do input+="${line}"$'\n'; done
 
-		((sum+=$("$0" hor XMAS <<< "$input")))       # L→R
-		((sum+=$("$0" hor SAMX <<< "$input")))       # R→L
+		((sum+=$("$0" hor XMAS <<< "$input")))
+		((sum+=$("$0" hor SAMX <<< "$input")))
 
 		((sum+=$("$0" ver <<< "$input")))
 
 		((sum+=$("$0" dia <<< "$input")))
-		((sum+=$(rev <<< "$input" | "$0" dia)))
+		((sum+=$(tac <<< "$input" | "$0" dia)))
 
 		echo $sum
 		;;
 	hor)
 		sum=0
-		while read line; do ((sum+=$(grep -o "$2"<<< $line|wc -l))) done
+		while read line; do ((sum+=$(grep -o "$2"<<<$line|wc -l))) done
 		echo $sum
 		;;
 	ver)
